@@ -1,0 +1,26 @@
+# Node modules (both client & server)
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment files
+.env
+client/.env
+server/.env
+
+# Logs
+*.log
+
+# Build folders
+dist/
+build/
+client/build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+gitignore
