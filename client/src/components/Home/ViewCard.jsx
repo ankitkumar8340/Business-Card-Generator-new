@@ -10,7 +10,7 @@ const ViewCard = () => {
     const [loading, setLoading] = useState(true);
 
     // Auto-detect backend URL (Same as HomePage)
-    const API_URL = `http://${window.location.hostname}:5000`;
+    const API_URL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         axios.get(`${API_URL}/get-card-public/${id}`)

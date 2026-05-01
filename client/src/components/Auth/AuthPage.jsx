@@ -9,7 +9,7 @@ const AuthPage = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({ username: '', email: '', password: '' });
 
-    const API_URL = `http://${window.location.hostname}:5000`;
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 

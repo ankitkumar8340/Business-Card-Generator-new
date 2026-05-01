@@ -51,7 +51,7 @@ const HomePage = () => {
         fullName: '', jobTitle: '', company: '', email: '', phone: '', website: '', template: 'modern', cardColor: '#111111', textColor: '#ffffff'
     });
 
-    const API_URL = `http://${window.location.hostname}:5000`;
+    const API_URL = import.meta.env.VITE_API_URL;
 
     // --- AUTO-DETECT NETWORK IP ---
     useEffect(() => {
