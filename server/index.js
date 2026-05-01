@@ -74,11 +74,8 @@ app.get('/get-cards/:userId', async (req, res) => { try { const cards = await Ca
 app.delete('/delete-card/:id', async (req, res) => { await Card.findByIdAndDelete(req.params.id); res.json({ status: "ok" }); });
 
 const PORT = process.env.PORT || 5000;
-const networkIP = getLocalIpAddress();
 
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`\n✅ Server Running!`);
-    console.log(`👉 Laptop Access:   http://localhost:${PORT}`);
-    console.log(`👉 Phone Access:    http://${networkIP}:${PORT}`); // This should now show 192.168.1.58
-    console.log(`\nIgnore the 192.168.56.1 if you see it elsewhere.\n`);
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
