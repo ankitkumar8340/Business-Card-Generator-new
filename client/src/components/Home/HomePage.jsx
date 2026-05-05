@@ -21,7 +21,7 @@ const PREMADE_TEMPLATES = [
 const HomePage = () => {
     const navigate = useNavigate();
     const [cards, setCards] = useState([]);
-    const [networkIP, setNetworkIP] = useState(window.location.hostname); // Default to current
+   
     
     // Scroll Animation States
     const [showNav, setShowNav] = useState(true);
@@ -56,15 +56,6 @@ const HomePage = () => {
     // --- AUTO-DETECT NETWORK IP ---
     useEffect(() => {
         // Ask the backend for the real Wi-Fi IP address
-        axios.get(`${API_URL}/get-network-ip`)
-            .then(res => {
-                if (res.data.ip) {
-                    setNetworkIP(res.data.ip);
-                    console.log("✅ Auto-Detected Network IP:", res.data.ip);
-                }
-            })
-            .catch(err => console.log("Could not auto-detect IP, using localhost"));
-            
         const userId = localStorage.getItem("userId");
         if (!userId || userId === "undefined") {
             setSessionValid(false);
@@ -193,10 +184,9 @@ const HomePage = () => {
                             
                             {/* Uses networkIP instead of window.location.hostname */}
                             <img 
-                                src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=http://${networkIP}:5173/view/${selectedCard._id}`} 
-                                alt="QR Code" 
-                                style={{display:'block', width:'220px'}}
-                            />
+    src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://your-vercel-app.vercel.app/view/${selectedCard._id}`} 
+    alt="QR Code" 
+/>
                             
                         </div>
                         <button className="cancel-btn" style={{width:'100%', borderColor:'#fff', color:'#fff'}} onClick={() => setShowShareModal(false)}>Close</button>
