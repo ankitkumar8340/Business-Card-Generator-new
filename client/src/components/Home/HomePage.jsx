@@ -67,20 +67,31 @@ const HomePage = () => {
             .catch(err => console.error(err));
     }, []);
 
-    const handleCreate = async (e) => {
-        e.preventDefault();
-        const userId = localStorage.getItem("userId");
-        try {
-            const res = await axios.post(`${API_URL}/create-card`, { ...formData, userId });
-            if (res.data.status === "ok") {
-                window.location.reload();
-            } else {
-                alert("Server Error: " + res.data.message);
+   const handleCreate = async (e) => {
+    e.preventDefault();
+    const userId = localStorage.getItem("userId");
+
+    try {
+        const res = await axios.post(`${API_URL}/create-card`, { ...formData, userId });
+
+        if (res.data.status === "ok") {
+            
+            // 🔥 fetch updated cards instantly
+            const updated = await axios.get(`${API_URL}/get-cards/${userId}`);
+            if (updated.data.status === 'ok') {
+                setCards(updated.data.cards);
             }
-        } catch (error) {
-            alert("Network Error");
+
+            setShowCreateModal(false); // close modal
+
+        } else {
+            alert("Server Error: " + res.data.message);
         }
-    };
+
+    } catch (error) {
+        alert("Network Error");
+    }
+};
 
     const handleDelete = async (id) => {
         if(window.confirm("Delete this card?")) {
@@ -184,8 +195,8 @@ const HomePage = () => {
                             
                             {/* Uses networkIP instead of window.location.hostname */}
                             <img 
-    src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://your-vercel-app.vercel.app/view/${selectedCard._id}`} 
-    alt="QR Code" 
+  src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://business-card-generator-9v4k8wwxo.vercel.app/view/${selectedCard._id}`} 
+  alt="QR Code" 
 />
                             
                         </div>
